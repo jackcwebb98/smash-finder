@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import firebase from "firebase";
 import { Redirect } from "react-router-dom";
 import { withProvider } from "../context/AppContext";
@@ -14,13 +14,6 @@ function Home() {
       currentUser(false);
     }
   });
-
-  useEffect(() => {
-    const load = () => {
-      currentUser();
-    };
-    load();
-  }, []);
 
   return user ? <Redirect to="/tournaments" /> : <Redirect to="/login" />;
 }

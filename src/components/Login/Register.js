@@ -9,7 +9,6 @@ const useStyles = makeStyles({});
 const Register = props => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(false);
 
   const createUser = async (email, password) => {
     await firebase
@@ -17,7 +16,7 @@ const Register = props => {
       .createUserWithEmailAndPassword(email, password)
       .catch(function(error) {
         console.log(error);
-        setError(true);
+        alert(error);
         return;
       })
       .then(props.history.push("/"));
@@ -28,6 +27,7 @@ const Register = props => {
     <div>
       <Typography>REGISTER</Typography>
       <TextField
+        type={email}
         onChange={e => setEmail(e.target.value)}
         placeholder={"Email"}
         variant="outlined"

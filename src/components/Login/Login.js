@@ -18,8 +18,8 @@ const useStyles = makeStyles({
     width: "100vw"
   },
   backgroundImage: {
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
+    backgroundSize: "cover",
+    backgroundPosition: "center",
     backgroundImage: `url(${background})`
   },
   paper: {
@@ -28,7 +28,7 @@ const useStyles = makeStyles({
     alignItems: "center",
     justifyContent: "center",
     height: "40%",
-    width: "30%"
+    width: "50%"
   },
   item: {
     padding: 12
@@ -61,6 +61,7 @@ const Login = props => {
         <Paper className={classes.paper}>
           <Typography className={classes.item}>Smash Brocator</Typography>
           <TextField
+            type={email}
             className={classes.item}
             onChange={e => setEmail(e.target.value)}
             placeholder={"Email"}

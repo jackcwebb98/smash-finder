@@ -24,7 +24,7 @@ function Geolocator(props) {
   const [long, setLong] = useState("");
   const [loadingState, setLoadingState] = useState(false);
   const [tourneys, setTourneys] = useState([]);
-  const { user, currentUser } = UserStore();
+  const { currentUser } = UserStore();
 
   firebase.auth().onAuthStateChanged(function(user) {
     if (!user) {

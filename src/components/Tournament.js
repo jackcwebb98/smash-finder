@@ -1,5 +1,4 @@
 import React from "react";
-import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -14,7 +13,7 @@ const useStyles = makeStyles({
 });
 
 function Tournament(props) {
-  const { name, details, images } = props.tournament;
+  const { name, images } = props.tournament;
   const link = "https://smash.gg" + props.tournament.url;
 
   const image = images[0];
