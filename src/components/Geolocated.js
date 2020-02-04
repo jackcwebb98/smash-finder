@@ -12,58 +12,74 @@ import firebase from "firebase";
 
 const useStyles = makeStyles({
   root: {
-    width: "100vw"
+    backgroundColor: "#ededeb",
+    height: "100%",
+    overflow: 'hidden'
+  },
+  bar: {
+    height: "10vh",
+    display: "flex",
+    justifyContent: "flex-end",
+    alignItems: "center"
+  },
+  button: {
+    height: "50%"
   },
   grid: {
-    padding: 50
+    padding: 10
+  },
+  loading: {
+    height: "100vh",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center"
   }
 });
 
 function Geolocator(props) {
-  const [lat, setLat] = useState("");
-  const [long, setLong] = useState("");
   const [loadingState, setLoadingState] = useState(false);
   const [tourneys, setTourneys] = useState([]);
-  const { currentUser } = UserStore();
-
-  firebase.auth().onAuthStateChanged(function(user) {
-    if (!user) {
-      currentUser([]);
-      props.history.push("/login");
-    }
-  });
 
   useEffect(() => {
-    geoLocate();
+    const load = async () => {
+      await geoLocate();
+    };
+    load();
   }, []);
 
-  const doTheThing = (lat, long) => {
+  const loadTournaments = async (lat, long) => {
     const latitude = String(lat);
     const longitude = String(long);
     let variables = {
       coordinates: latitude + ", " + longitude,
-      radius: "50mi",
+      radius: "25mi",
       videogameId: 1386
     };
-    getTournaments(variables).then(res => setTourneys(res.tournaments.nodes));
+    await getTournaments(variables).then(res =>
+      setTourneys(res.tournaments.nodes)
+    );
   };
 
-  const logout = () => {
-    firebase
-      .auth()
-      .signOut()
-      .then(function() {
-        console.log("successful");
-      })
-      .catch(function() {
-        console.log("there was an issue");
-      });
+  // const logout = () => {
+  //   firebase
+  //     .auth()
+  //     .signOut()
+  //     .then(function() {
+  //       console.log("successful");
+  //     })
+  //     .catch(function() {
+  //       console.log("there was an issue");
+  //     });
+  // };
+
+  const geoLocate = async () => {
+    await navigator.geolocation.getCurrentPosition(success, error, options);
   };
 
   const success = pos => {
     let crd = pos.coords;
-    setLat(crd.latitude);
-    setLong(crd.longitude);
+    loadTournaments(crd.latitude, crd.longitude);
+
     setLoadingState(true);
   };
 
@@ -77,13 +93,9 @@ function Geolocator(props) {
     maximumAge: 0
   };
 
-  const geoLocate = async () => {
-    await navigator.geolocation.getCurrentPosition(success, error, options);
-  };
-
   const mappedTourneys = tourneys.map(tourney => {
     return (
-      <Grid key={tourney.id} item xs={12} sm={4} md={3}>
+      <Grid key={tourney.id} item xs={12} sm={6} md={3}>
         <Tournament tournament={tourney} />
       </Grid>
     );
@@ -92,19 +104,17 @@ function Geolocator(props) {
   const classes = useStyles(props);
   return loadingState === false ? (
     <>
-      <Box>
-        <Typography>Loading...</Typography>
+      <Box className={classes.loading}>
+        <Typography>Loading Tournaments Near You...</Typography>
       </Box>
     </>
   ) : (
     <>
-      <Box className={classes.root}>
-        <Button onClick={() => doTheThing(lat, long)}>Show Tournaments</Button>
-        <Button onClick={logout}>Logout</Button>
-        <Grid container spacing={2} justify="center" className={classes.grid}>
+      <div className={classes.root}>
+        <Grid container spacing={3} justify="center" className={classes.grid}>
           {mappedTourneys}
         </Grid>
-      </Box>
+      </div>
     </>
   );
 }

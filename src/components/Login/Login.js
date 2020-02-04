@@ -7,7 +7,7 @@ import Paper from "@material-ui/core/Paper";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import firebase from "firebase";
-import background from "../../assets/background.jpg";
+import background from "../../assets/background.png";
 
 const useStyles = makeStyles({
   root: {
@@ -27,8 +27,8 @@ const useStyles = makeStyles({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    height: "40%",
-    width: "50%"
+    height: "60%",
+    width: "50%",
   },
   item: {
     padding: 12
@@ -48,11 +48,11 @@ const Login = props => {
       });
   };
 
-  firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-      props.history.push("/tournaments");
-    }
-  });
+  // firebase.auth().onAuthStateChanged(function(user) {
+  //   if (user) {
+  //     props.history.push("/tournaments");
+  //   }
+  // });
 
   const classes = useStyles(props);
   return (
