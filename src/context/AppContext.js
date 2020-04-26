@@ -1,17 +1,17 @@
-import React, { useState, createContext, useContext } from 'react';
+import React, { useState, createContext } from "react";
 
-const Context = createContext({});
+export const AppContext = createContext({});
 
 const Provider = props => {
   const [state, setState] = useState([]);
+  const [open, setOpen] = useState(false);
+
   return (
-    <Context.Provider value={[state, setState]}>
+    <AppContext.Provider value={{ state, setState, open, setOpen }}>
       {props.children}
-    </Context.Provider>
+    </AppContext.Provider>
   );
 };
-
-export const useStore = () => useContext(Context);
 
 export function withProvider(Component) {
   return function WrapperComponent(props) {

@@ -1,30 +1,11 @@
-import Login from '../components/Login/Login';
-import Geolocator from '../components/Geolocated';
-import Register from '../components/Login/Register';
-
+import Geolocator from "../components/Geolocated";
 
 const routes = [
   {
-    path: '/',
+    path: "/",
     component: Geolocator,
-    exact: true,
-  },
-  // {
-  //   path: '/login',
-  //   component: Login,
-  //   exact: true,
-  // },
-  // {
-  //   path: '/register',
-  //   component: Register,
-  //   exact: true,
-  // },
-  // {
-  //   path: '/tournaments',
-  //   component: Geolocator,
-  //   exact: true,
-  // },
-
+    exact: true
+  }
 ];
 
 export default routes;

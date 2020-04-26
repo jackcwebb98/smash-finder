@@ -5,6 +5,7 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import { makeStyles } from "@material-ui/core/styles";
+import * as moment from "moment";
 
 const useStyles = makeStyles({
   card: {
@@ -22,16 +23,25 @@ const useStyles = makeStyles({
     height: "100%",
     display: "flex",
     justifyContent: "center",
+    flexDirection: "column",
     alignItems: "center",
     paddingLeft: 10
+  },
+  date: {
+    color: "grey"
+  },
+  name: {
+    display: "flex",
+    alignItems: "center"
   }
 });
 
 function Tournament(props) {
-  const { name, images } = props.tournament;
+  const { name, images, startAt } = props.tournament;
   const link = "https://smash.gg" + props.tournament.url;
 
   const image = images[0];
+  const date = moment.unix(startAt);
 
   const openTab = () => {
     window.open(link);
@@ -49,6 +59,9 @@ function Tournament(props) {
           />
           <div className={classes.text}>
             <Typography>{name}</Typography>
+            <Typography className={classes.date}>
+              {date.format("MMM Do YYYY")}
+            </Typography>
           </div>
         </CardContent>
       </CardActionArea>
@@ -56,8 +69,11 @@ function Tournament(props) {
   ) : (
     <Card className={classes.card}>
       <CardActionArea onClick={openTab}>
-        <CardContent className={classes.content}>
+        <CardContent className={classes.text}>
           <Typography>{name}</Typography>
+          <Typography className={classes.date}>
+            {date.format("MMM Do YYYY")}
+          </Typography>
         </CardContent>
       </CardActionArea>
     </Card>

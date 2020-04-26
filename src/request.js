@@ -23,7 +23,7 @@ const query = `query tournamentsByLocation($coordinates: String!, $radius: Strin
       id
       name
       url
-      details
+      startAt
       images{
         url
       }
@@ -34,7 +34,7 @@ const query = `query tournamentsByLocation($coordinates: String!, $radius: Strin
 function getTournaments(variables) {
   let tourneys = client.request(query, variables);
 
-  return tourneys
+  return tourneys;
 }
 
 export default getTournaments;

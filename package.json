@@ -12,10 +12,13 @@
     "express": "^4.17.1",
     "firebase": "^7.6.0",
     "graphql-request": "^1.8.2",
+    "lodash": "^4.17.15",
     "massive": "^6.1.4",
+    "moment": "^2.24.0",
     "nodemon": "^2.0.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "react-geocode": "^0.2.1",
     "react-geolocated": "^3.0.1",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.3.0"
